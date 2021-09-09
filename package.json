@@ -5,34 +5,100 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "test:unit": "vue-cli-service test:unit",
+    "lint": "vue-cli-service lint",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "cz": "npm run lint -- --fix && git add --all && npx cz",
+    "start": "cross-env NODE_ENV=development dotenv -e .env.dev vue-cli-service serve"
   },
   "dependencies": {
+    "axios-mapper": "^0.5.4",
+    "chalk": "^4.1.0",
+    "clipboard": "^2.0.6",
     "core-js": "^3.6.5",
-    "vue": "^3.0.0"
+    "crypto-ts": "^1.0.2",
+    "dayjs": "^1.10.3",
+    "driver.js": "^0.9.8",
+    "element-plus": "^1.0.2-beta.35",
+    "js-cookie": "^2.2.1",
+    "lodash": "^4.17.20",
+    "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
+    "path-to-regexp": "^6.2.0",
+    "reflect-metadata": "^0.1.13",
+    "register-service-worker": "^1.7.1",
+    "vue": "^3.1.x",
+    "vue-class-component": "^8.0.0-0",
+    "vue-property-decorator": "^9.1.2",
+    "vue-router": "4.0",
+    "vuex": "^4.0.0-alpha.1",
+    "vuex-module-decorators": "^1.0.1",
+    "vuex-persistedstate": "^4.0.0-beta.1"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.19",
+    "@types/js-cookie": "^2.2.6",
+    "@types/lodash": "^4.14.167",
+    "@types/node": "^14.14.11",
+    "@types/nprogress": "^0.2.0",
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-pwa": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-typescript": "~4.5.0",
+    "@vue/cli-plugin-unit-jest": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
     "@vue/eslint-config-standard": "^5.1.2",
-    "babel-eslint": "^10.1.0",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "@vue/test-utils": "^2.0.0-alpha.1",
+    "babel-loader": "^8.2.2",
+    "concurrently": "^5.3.0",
+    "cross-env": "^7.0.3",
+    "cz-customizable": "^6.3.0",
+    "dotenv-cli": "^4.0.0",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^7.0.0",
-    "lint-staged": "^9.5.0"
+    "lint-staged": "^9.5.0",
+    "sass": "^1.26.5",
+    "sass-loader": "^8.0.2",
+    "script-ext-html-webpack-plugin": "^2.1.5",
+    "style-loader": "^2.0.0",
+    "style-resources-loader": "^1.4.1",
+    "typescript": "~4.1.5",
+    "vue-cli-plugin-element-plus": "~0.0.13",
+    "vue-cli-plugin-style-resources-loader": "^0.1.4",
+    "vue-jest": "^5.0.0-alpha.8",
+    "webpackbar": "^5.0.0-3"
+  },
+  "_id": "ccr-media-web@0.1.0",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": ".cz-configrc.js"
+    }
+  },
+  "engines": {
+    "node": ">=8.9",
+    "npm": ">= 3.0.0"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
-    "*.{js,jsx,vue}": [
+    "*.{js,jsx,vue,ts,tsx}": [
       "vue-cli-service lint",
       "git add"
     ]
-  }
+  },
+  "readme": "ERROR: No README data found!"
 }
