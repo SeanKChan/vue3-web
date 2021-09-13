@@ -1,32 +1,38 @@
 {
   "name": "ccr-media-web",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "start": "concurrently \"npm run mock\" \"npm run serve:dev\"",
+    "serve:dev": "cross-env NODE_ENV=development dotenv -e .env.dev vue-cli-service serve",
+    "build:dev": "cross-env NODE_ENV=production  dotenv -e .env.dev vue-cli-service build",
+    "mock": "cd mock && ts-node-dev mock.ts",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
-    "cz": "npm run lint -- --fix && git add --all && npx cz",
-    "start": "cross-env NODE_ENV=development dotenv -e .env.dev vue-cli-service serve"
+    "cz": "npm run lint -- --fix && git add --all && npx cz"
   },
   "dependencies": {
     "axios-mapper": "^0.5.4",
     "chalk": "^4.1.0",
     "clipboard": "^2.0.6",
     "core-js": "^3.6.5",
-    "crypto-ts": "^1.0.2",
     "dayjs": "^1.10.3",
-    "driver.js": "^0.9.8",
     "element-plus": "^1.0.2-beta.35",
+    "faker": "^5.1.0",
     "js-cookie": "^2.2.1",
+    "koa": "^2.13.0",
+    "koa-body": "^4.2.0",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^10.0.0",
+    "koa2-cors": "^2.0.6",
     "lodash": "^4.17.20",
+    "log4js": "^6.3.0",
+    "moment": "^2.29.1",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.0",
     "reflect-metadata": "^0.1.13",
-    "register-service-worker": "^1.7.1",
     "vue": "^3.1.x",
     "vue-class-component": "^8.0.0-0",
     "vue-property-decorator": "^9.1.2",
@@ -36,16 +42,22 @@
     "vuex-persistedstate": "^4.0.0-beta.1"
   },
   "devDependencies": {
+    "@types/clipboard": "^2.0.1",
+    "@types/faker": "^5.1.5",
     "@types/jest": "^24.0.19",
     "@types/js-cookie": "^2.2.6",
+    "@types/koa": "^2.11.6",
+    "@types/koa-logger": "^3.1.1",
+    "@types/koa-router": "^7.4.1",
+    "@types/koa2-cors": "^2.0.1",
     "@types/lodash": "^4.14.167",
     "@types/node": "^14.14.11",
     "@types/nprogress": "^0.2.0",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
+    "@vue/cli-plugin-pwa": "~4.5.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-pwa": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-typescript": "~4.5.0",
     "@vue/cli-plugin-unit-jest": "~4.5.0",
@@ -72,13 +84,13 @@
     "script-ext-html-webpack-plugin": "^2.1.5",
     "style-loader": "^2.0.0",
     "style-resources-loader": "^1.4.1",
+    "ts-node-dev": "^1.0.0",
     "typescript": "~4.1.5",
     "vue-cli-plugin-element-plus": "~0.0.13",
     "vue-cli-plugin-style-resources-loader": "^0.1.4",
     "vue-jest": "^5.0.0-alpha.8",
     "webpackbar": "^5.0.0-3"
   },
-  "_id": "ccr-media-web@0.1.0",
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-customizable"
@@ -99,6 +111,5 @@
       "vue-cli-service lint",
       "git add"
     ]
-  },
-  "readme": "ERROR: No README data found!"
+  }
 }

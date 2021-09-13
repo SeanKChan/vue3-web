@@ -1,11 +1,18 @@
 <template>
   <router-view />
 </template>
-
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
+import { useStore } from '@/store'
+import { UserActionTypes } from '@/store/modules/user/action-types'
 
 export default defineComponent({
-  name: 'App'
+  setup() {
+    const store = useStore()
+
+    onMounted(async () => {
+      await store.dispatch(UserActionTypes.GET_USER_INFO, 'user_1')
+    })
+  }
 })
 </script>

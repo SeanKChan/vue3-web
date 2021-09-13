@@ -1,10 +1,3 @@
-/*
- * @Description: app moudle
- * @Author: ZY
- * @Date: 2020-12-23 10:25:37
- * @LastEditors: ZY
- * @LastEditTime: 2020-12-23 11:51:40
- */
 import {
   Store as VuexStore,
   CommitOptions,
@@ -17,11 +10,11 @@ import { RootState } from '@/store'
 import { state } from './state'
 import { mutations, Mutations } from './mutations'
 import { actions, Actions } from './actions'
-import type { AppState } from './state'
+import type { UserState } from './state'
 
-export { AppState }
+export { UserState }
 
-export type AppStore<S = AppState> = Omit<VuexStore<S>, 'getters' | 'commit' | 'dispatch'>
+export type UserStore<S = UserState> = Omit<VuexStore<S>, 'getters' | 'commit' | 'dispatch'>
   & {
     commit<K extends keyof Mutations, P extends Parameters<Mutations[K]>[1]>(
       key: K,
@@ -35,7 +28,7 @@ export type AppStore<S = AppState> = Omit<VuexStore<S>, 'getters' | 'commit' | '
       options?: DispatchOptions
     ): ReturnType<Actions[K]>
   };
-export const store: Module<AppState, RootState> = {
+export const store: Module<UserState, RootState> = {
   state,
   mutations,
   actions
