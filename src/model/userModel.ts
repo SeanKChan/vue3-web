@@ -28,3 +28,7 @@ export interface UserInfoModel {
   avatar: string
   roles: RoleInfoModel[]
 }
+
+export interface Users {
+  items: any
+}

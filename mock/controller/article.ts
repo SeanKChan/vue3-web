@@ -1,10 +1,3 @@
-/*
- * @Description:table列表接口
- * @Author: ZY
- * @Date: 2020-12-28 09:46:46
- * @LastEditors: ZY
- * @LastEditTime: 2021-01-21 17:31:24
- */
 
 import { post, prefix, get } from "../requestDecorator";
 import faker from 'faker'
@@ -42,20 +35,21 @@ for (let i = 0; i < articleCount; i++) {
     imageURL: faker.image.imageUrl(),
     timestamp: faker.date.past().getTime(),
     platforms: [faker.random.arrayElement(['a-platform', 'b-platform', 'c-platform'])],
-    disableComment: faker.random.boolean(),
-    importance: faker.random.number({ min: 1, max: 3 }),
+    disableComment: faker.datatype.boolean(),
+    importance: faker.datatype.number({ min: 1, max: 3 }),
     author: faker.name.findName(),
     reviewer: faker.name.findName(),
     type: faker.random.arrayElement(['CN', 'US', 'JP', 'EU']),
-    pageviews: faker.random.number({ min: 300, max: 500 })
+    pageviews: faker.datatype.number({ min: 300, max: 500 })
   })
 }
-@prefix('/api/article')
+@prefix('/api/articles')
 export default class Article {
 
-  @post('/articles')
+  @get('')
   async getArticles(ctx: any) {
-    const { importance, type, title, page = 1, limit = 20, sort } = ctx.request.body
+    debugger
+    const { importance, type, title, page = 1, limit = 20, sort } = ctx.query
     let mockList = articleList.filter(item => {
       if (importance && item.importance !== +importance) return false
       if (type && item.type !== type) return false
@@ -73,9 +67,9 @@ export default class Article {
     }
   }
 
-  @get('/articleInfo')
+  @get('/:id')
   async getArticle(ctx: any) {
-    const { id } = ctx.query
+    const { id } = ctx.params
     for (const article of articleList) {
       if (article.id.toString() === id) {
         return article
@@ -87,11 +81,11 @@ export default class Article {
     }
   }
 
-  @post('/createArticle')
+  @post('')
   createArticle(ctx: any) {
     const { article } = ctx.request.body
     return {
-      code: 20000,
+      code: 0,
       data: {
         article
       }

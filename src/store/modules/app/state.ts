@@ -6,9 +6,11 @@ export enum DeviceType {
 export interface AppState {
   device: DeviceType
   size: string
+  language: string
 }
 
 export const state: AppState = {
   device: DeviceType.Desktop,
-  size: 'medium'
+  size: 'medium',
+  language: 'zh'
 }

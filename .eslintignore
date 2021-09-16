@@ -1,3 +1,4 @@
 src/config
 vue.config.js
 mock/
+public/

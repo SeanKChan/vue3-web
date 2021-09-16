@@ -38,8 +38,6 @@
 
       <div class="createPost-main-container">
         <el-row>
-          <Warning />
-
           <el-col :span="24">
             <MaterialInput
               :maxlength="100"
@@ -157,12 +155,10 @@ import {
 import { isValidURL } from '@/utils/validate'
 import { getArticle, defaultArticleModel } from '@/apis/articles'
 import { getUsers } from '@/apis/user'
-import { TagView } from '@/store/modules/tagsview/state'
 import MaterialInput from '@/components/material-input/Index.vue'
 import Sticky from '@/components/sticky/Index.vue'
 import Tinymce from '@/components/tinymce/Index.vue'
 // import UploadImage from '@/components/UploadImage/index.vue'
-import Warning from './Warning.vue'
 import {
   CommentDropdown,
   PlatformDropdown,
@@ -170,8 +166,6 @@ import {
 } from './Dropdown'
 import { ElMessage, ElForm } from 'element-plus'
 import { useRouter, useRoute } from 'vue-router'
-import { useStore } from '@/store'
-import { TagsActionTypes } from '@/store/modules/tagsview/action-types'
 
 export default defineComponent({
   props: {
@@ -186,9 +180,8 @@ export default defineComponent({
     SourceUrlDropdown,
     Sticky,
     MaterialInput,
-    Tinymce,
+    Tinymce
     // UploadImage,
-    Warning
   },
 
   setup(_, ctx) {
@@ -227,9 +220,7 @@ export default defineComponent({
         callback()
       }
     }
-    const store = useStore()
 
-    const tempTagView: TagView = {}
     const route = useRoute()
     const dataMap = reactive({
       router: useRouter(),
@@ -248,9 +239,6 @@ export default defineComponent({
       tinymceActive: true,
       abstractContentLength() {
         return this.postForm.abstractContent.length
-      },
-      lang() {
-        return store.state.app.language
       },
       formDropdown: (val: any) => {
         dataMap.postForm.platforms = val
@@ -272,17 +260,9 @@ export default defineComponent({
       document.title = `${title} - ${dataMap.postForm.id}`
     }
 
-    const setTagsViewTitle = (title: string) => {
-      const tagView = tempTagView
-      if (tagView) {
-        tagView.title = `${title}-${dataMap.postForm.id}`
-        // TagsViewModule.updateVisitedView(tagView)
-        store.dispatch(TagsActionTypes.ACTION_UPDATE_VISITED_VIEW, tagView)
-      }
-    }
     const fetchData = async (id: any) => {
       try {
-        const data = await getArticle({ id })
+        const data = await getArticle(id)
         if (data) {
           console.log(data.data)
 
@@ -296,9 +276,7 @@ export default defineComponent({
         // Just for test
         dataMap.postForm.title += `   Article Id:${dataMap.postForm.id}`
         dataMap.postForm.abstractContent += `   Article Id:${dataMap.postForm.id}`
-        const title = dataMap.lang() === 'zh' ? '编辑文章' : 'Edit Article'
-        // Set tagsview title
-        setTagsViewTitle(title)
+        const title = 'Edit Article'
         // Set page title
         setPageTitle(title)
       } catch (err) {
@@ -383,7 +361,6 @@ export default defineComponent({
       fetchData,
       submitForm,
       setPageTitle,
-      setTagsViewTitle,
       draftForm,
       getRemoteUserList,
       postFormNode,

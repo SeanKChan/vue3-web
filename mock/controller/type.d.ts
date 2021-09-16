@@ -1,12 +1,24 @@
-export interface RoleBean {
-  roleId: string
-  roleName: string
-}
+/*
+ * @Description:
+ * @Author: ZY
+ * @Date: 2020-12-28 15:13:48
+ * @LastEditors: ZY
+ * @LastEditTime: 2021-01-12 15:22:27
+ */
+
 
 export interface UserBean {
-  uid: string
+  id: number
   username: string
-  nickname: string
+  password: string
+  name: string
+  email: string
+  phone: string
   avatar: string
-  roles: RoleBean[]
+  introduction: string
+}
+export interface RoleBean {
+  key: string
+  name: string
+  description: string
 }

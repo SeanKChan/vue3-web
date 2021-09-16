@@ -43,12 +43,14 @@
         label="Importance"
       >
         <template #default="{row}">
-          <svg-icon
+          <el-icon
             v-for="n in +row.importance"
             :key="n"
-            name="star"
             class="meta-item__icon"
-          />
+            color="#606266"
+          >
+            <Star />
+          </el-icon>
         </template>
       </el-table-column>
 
@@ -58,7 +60,7 @@
         width="110"
       >
         <template #default="{row}">
-          <el-tag :type="row.status ">
+          <el-tag :type="row.status">
             {{ row.status }}
           </el-tag>
         </template>
@@ -70,7 +72,7 @@
       >
         <template #default="{row}">
           <router-link
-            :to="'/example/edit/'+row.id"
+            :to="'/demo/' + row.id"
             class="link-type"
           >
             <span>{{ row.title }}</span>
@@ -84,7 +86,7 @@
         width="120"
       >
         <template #default="{row}">
-          <router-link :to="'/example/edit/'+row.id">
+          <router-link :to="'/demo/' + row.id">
             <el-button
               type="primary"
               size="small"
@@ -97,8 +99,8 @@
       </el-table-column>
     </el-table>
 
-    <pagination
-      v-show="total>0"
+    <el-pagination
+      v-show="total > 0"
       :total="total"
       v-model:page="listQuery.page"
       v-model:limit="listQuery.limit"
@@ -110,10 +112,14 @@
 <script lang="ts">
 import { getArticles } from '@/apis/articles'
 import { ArticleModel } from '@/model/articleModel'
+import { Star } from '@element-plus/icons'
 
 import { defineComponent, reactive, toRefs, onMounted } from 'vue'
 
 export default defineComponent({
+  components: {
+    Star
+  },
   setup() {
     const dataMap = reactive({
       total: 0,

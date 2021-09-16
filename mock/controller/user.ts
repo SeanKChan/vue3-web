@@ -1,15 +1,30 @@
 
+
 import { prefix, get } from "../requestDecorator";
 import userList from "../mockdb/userList";
 import * as Koa from 'koa';
-import { find } from 'lodash'
-@prefix('/api/user')
+import { find } from 'lodash';
+@prefix('/api/users')
 export default class User {
-  @get('/:uid')
+
+  @get('/:id')
   async getUserInfo(ctx: Koa.Context) {
-    const { uid } = ctx.params
-    const { token } = ctx.request.header
-    console.log('token', token)
-    return find(userList, ['uid', uid])
+    const { id } = ctx.params
+    return find(userList, ['id', id]) || userList[0]
+  }
+
+  @get('')
+  async getUsers(ctx: any) {
+    const { name } = ctx.query
+    const users = userList.filter(user => {
+      const lowerCaseName = user.name.toLowerCase()
+      return !(name && lowerCaseName.indexOf((name as string).toLowerCase()) < 0)
+    })
+    return {
+      code: 0,
+      data: {
+        items: users
+      }
+    }
   }
 }

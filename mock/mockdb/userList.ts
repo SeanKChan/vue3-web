@@ -1,20 +1,41 @@
-import { UserBean } from "controller/type"
+import { UserBean } from "controller/type";
 import faker from 'faker'
 
-const userList: UserBean[] = []
+const userList: UserBean[] = [
+  {
+    id: 0,
+    username: 'admin',
+    password: 'any',
+    name: 'Super Admin',
+    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    introduction: 'I am a super administrator',
+    email: 'admin@test.com',
+    phone: '1234567890',
+  },
+  {
+    id: 1,
+    username: 'editor',
+    password: 'any',
+    name: 'Normal Editor',
+    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    introduction: 'I am an editor',
+    email: 'editor@test.com',
+    phone: '1234567890',
+  }
+]
 
-for (let i = 0; i < 10; i++) {
+const userCount = 100
+
+for (let i = 2; i < userCount; i++) {
   userList.push({
-    uid: `user_${i + 1}`,
-    username: faker.internet.userName(),
-    nickname: faker.name.findName(),
-    avatar: faker.image.avatar(),
-    roles: [
-      {
-        roleId: faker.datatype.uuid(),
-        roleName: faker.vehicle.vehicle()
-      }
-    ]
+    id: i,
+    username: 'user_' + faker.random.alphaNumeric(9),
+    password: faker.random.alphaNumeric(20),
+    name: faker.name.findName(),
+    avatar: faker.image.imageUrl(),
+    introduction: faker.lorem.sentence(20),
+    email: faker.internet.email(),
+    phone: faker.phone.phoneNumber(),
   })
 }
 

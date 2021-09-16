@@ -24,11 +24,11 @@ export const defaultArticleModel: ArticleModel = {
 }
 
 export const getArticles = (params: any) => {
-  return client.request<RootObject<ArticleList<ArticleModel>>>('article/articles', Method.POST, params, ContentType.json)
+  return client.request<RootObject<ArticleList<ArticleModel>>>('articles', Method.GET, params, ContentType.json)
 }
 
-export const getArticle = (params: any) => {
-  return client.request<RootObject<ArticleModel>>('article/articleInfo', Method.GET, params, ContentType.form)
+export const getArticle = (id: string) => {
+  return client.request<RootObject<ArticleModel>>(`articles/${id}`, Method.GET, undefined, ContentType.form)
 }
 
 export const createArticle = (data: any) => {
