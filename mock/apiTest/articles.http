@@ -1,4 +1,7 @@
+### 获取列表
 GET http://localhost:3300/api/articles?page=1&limit=10
 Accept: application/json
 
-###
+### 获取详情
+GET http://localhost:3300/api/articles/0
+Accept: application/json

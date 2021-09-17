@@ -1,9 +1,9 @@
 <template>
   <el-form
-    class="app-container"
+    class="app-container form-container"
     ref="formNode"
     :model="form"
-    label-width="80px"
+    label-width="120px"
   >
     <el-form-item label="title">
       <el-input v-model="form.title" />
@@ -49,7 +49,11 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="SourceURL">
-      <el-input v-model="form.sourceURL" />
+      <el-input v-model="form.sourceURL">
+        <template #prepend>
+          Http://
+        </template>
+      </el-input>
     </el-form-item>
     <el-form-item label="Publish Time">
       <el-col :span="11">
@@ -92,7 +96,9 @@
       >
         Submit
       </el-button>
-      <el-button>Cancle</el-button>
+      <el-button @click="cancelForm">
+        Cancel
+      </el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -162,7 +168,7 @@ export default defineComponent({
 
     const dataMap = reactive({
       route: useRoute(),
-      form: Object.assign({}, defaultArticleModel),
+      form: Object.assign({ publishTime: Date.now() }, defaultArticleModel),
       loading: false,
       userListOptions: [],
       rules: {
@@ -178,7 +184,7 @@ export default defineComponent({
       try {
         const res = await getArticle(id)
         if (res?.code === 0) {
-          dataMap.form = res.data
+          dataMap.form = Object.assign(dataMap.form, res.data)
         }
       } catch (err) {
         console.error(err)
@@ -205,6 +211,11 @@ export default defineComponent({
       })
     }
 
+    const cancelForm = () => {
+      const _form = unref(formNode)
+      _form.resetFields()
+    }
+
     const getRemoteUserList = async (name: string) => {
       const res = await getUsers({ name })
       if (!res?.data.items) return
@@ -229,8 +240,17 @@ export default defineComponent({
       validateSourceUrl,
       fetchData,
       submitForm,
-      getRemoteUserList
+      cancelForm,
+      getRemoteUserList,
+      formNode
     }
   }
 })
 </script>
+
+<style lang="scss" scoped>
+.form-container {
+  width: 80%;
+  margin: 10px auto;
+}
+</style>
